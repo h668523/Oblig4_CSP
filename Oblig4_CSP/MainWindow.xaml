@@ -1,0 +1,16 @@
+﻿<Window x:Class="Oblig4_CSP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Oblig4_CSP"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="120" Width="320">
+    <Grid>
+        <Button Name="bCleaning" Content="Cleaning" HorizontalAlignment="Left" Margin="35,40,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="60" Click="bCleaning_Click"/>
+        <Button Name="bService" Content="Service" HorizontalAlignment="Left" Margin="130,40,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="60" Click="bService_Click"/>
+        <Button Name="bPersonell" Content="Personell" HorizontalAlignment="Left" Margin="225,40,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="60" Click="bPersonell_Click"/>
+        <Label Content="Choose type" HorizontalAlignment="Left" Margin="120,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
