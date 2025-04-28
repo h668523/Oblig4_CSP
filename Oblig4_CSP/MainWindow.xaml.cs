@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oblig4_CSP.Models;
 using Task = Oblig4_CSP.Models.HotelTask;
 
@@ -19,53 +21,46 @@ namespace Oblig4_CSP
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<HotelTask> tasks;
+        private readonly HotelDbContext dx = new();
+        private readonly LocalView<HotelTask> tasks;
         public MainWindow()
         {
             InitializeComponent();
-            Room room1 = new Room(101);
-            Room room2 = new Room(102);
-            Room room3 = new Room(103);
-            Room room4 = new Room(201);
-            Room room5 = new Room(202);
-            Room room6 = new Room(203);
 
-            List<Room> rooms = new List<Room> { 
-                       room1, room2, room3, room4, room5, room6
-                       };
-            tasks = new List<HotelTask> { 
-                        new HotelTask(room1, RoomStatus.Personell, "Room Service, they want eggs"),
-                        new HotelTask(room2, RoomStatus.Personell, "Room Service, they want wine"),
-                        new HotelTask(room3, RoomStatus.Service, "TV won't work"),
-                        new HotelTask(room4, RoomStatus.Cleaning, "Change towels"),
-                        new HotelTask(room5, RoomStatus.Personell, "Room Service, they want beer"),
-                        new HotelTask(room6, RoomStatus.Cleaning, "Checked out")
-                        };
+            tasks = dx.HotelTasks.Local;
+
+            dx.HotelTasks.Load();
 
         }
 
         private void bCleaning_Click(object sender, RoutedEventArgs e)
         {
-            var t = tasks.Where(x=>x.type == RoomStatus.Cleaning).ToList();
-            CSP csp = new(t);
+            //var t = tasks.Where(x=>x.Type == "Cleaning").ToList();
+            CSP csp = new(dx, "Cleaning");
             csp.Show();
             this.Close();
         }
 
         private void bService_Click(object sender, RoutedEventArgs e)
         {
-            var t = tasks.Where(x => x.type == RoomStatus.Service).ToList();
-            CSP csp = new(t);
+            //var t = tasks.Where(x => x.Type == "Service").ToList();
+            CSP csp = new(dx, "Service");
             csp.Show();
             this.Close();
         }
 
         private void bPersonell_Click(object sender, RoutedEventArgs e)
         {
-            var t = tasks.Where(x => x.type == RoomStatus.Personell).ToList();
-            CSP csp = new(t);
+            //var t = tasks.Where(x => x.Type == "Personell").ToList();
+            CSP csp = new(dx, "Personell");
             csp.Show();
             this.Close();
+        }
+
+        private void bAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            Admin a = new(dx); 
+            a.Show();
         }
     }
 }

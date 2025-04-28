@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Oblig4_CSP.Models
+namespace Oblig4_CSP.Models;
+
+public partial class Room
 {
-    internal class Room
-    {
-        public int RoomNr { get; set; }
+    public int Id { get; set; }
 
-        public Room(int roomNr) { RoomNr = roomNr; }
+    public int NumberOfBeds { get; set; }
 
-    }
+    public string RoomType { get; set; } = null!;
+
+    public decimal PricePerNight { get; set; }
+
+    public bool IsAvailable { get; set; }
+
+    public virtual ICollection<HotelTask> HotelTasks { get; set; } = new List<HotelTask>();
+
+    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oblig4_CSP.Models;
 
 namespace Oblig4_CSP
@@ -20,30 +21,34 @@ namespace Oblig4_CSP
     /// </summary>
     public partial class Editor : Window
     {
-        private List<String> taskStats;
-        private HotelTask Ht {  get; set; }
-        private List<TaskStats> ts;
-        internal Editor(HotelTask ht)
+        private readonly LocalView<HotelTask> hotelTask;
+        private readonly HotelDbContext dx;
+        public HotelTask Ht {  get; set; }
+        private List<String> ts;
+        public Editor(LocalView<HotelTask> ht, HotelDbContext d)
         {
             InitializeComponent();
-            taskStats = new List<String> { "New", "In_Progress", "Finished" };
-            statusListe.DataContext = taskStats;
-            Ht = ht;
-            ts = new List<TaskStats> { TaskStats.New, TaskStats.In_Progress, TaskStats.Finished };
+            ts = new List<String> { "New", "In_Progress", "Finished" };
+            statusListe.DataContext = ts;
+            hotelTask = ht;
+            dx = d;
         }
 
         private void bUpdate_Click(object sender, RoutedEventArgs e)
         {
-            var s = statusListe.SelectedItem.ToString;
-            Ht.description = sDesc.ToString();
+            var s = statusListe.SelectedItem.ToString();
+            Ht.Description = sDesc.Text;
             foreach (var t in ts)
             {
-                if (t.ToString == s)
+                if (t.ToString() == s)
                 {
-                    Ht.status = t;
+                    Ht.Status = t;
+                    if (t.Equals("Finished")) { Ht.Room.IsAvailable = true; } else { Ht.Room.IsAvailable = false; }
+                    dx.SaveChanges();
                 }
             }
 
+            this.DialogResult = true;
             this.Close();
         }
     }

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Oblig4_CSP.Models
+namespace Oblig4_CSP.Models;
+
+public partial class HotelTask
 {
-    internal class HotelTask
-    {
-        public Room room { get; set; }
-        public RoomStatus type { get; set; }
-        public TaskStats status { get; set; }
-        public string description { get; set; }
+    public int Id { get; set; }
 
-        public HotelTask(Room rom, RoomStatus tt, string desc) { room = rom; type = tt; description = desc; status = TaskStats.New; }
-    }
+    public int RoomId { get; set; }
+
+    public string Type { get; set; } = null!;
+
+    public string Status { get; set; } = null!;
+
+    public string? Description { get; set; }
+
+    public virtual Room Room { get; set; } = null!;
 }

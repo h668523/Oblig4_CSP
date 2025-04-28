@@ -11,6 +11,7 @@
         <Button Name="bService" Content="Service" HorizontalAlignment="Left" Margin="130,40,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="60" Click="bService_Click"/>
         <Button Name="bPersonell" Content="Personell" HorizontalAlignment="Left" Margin="225,40,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="60" Click="bPersonell_Click"/>
         <Label Content="Choose type" HorizontalAlignment="Left" Margin="120,10,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+        <Button Name="bAdmin" Content="Admin" HorizontalAlignment="Center" Margin="0,89,0,0" VerticalAlignment="Top" Click="bAdmin_Click"/>
 
     </Grid>
 </Window>
